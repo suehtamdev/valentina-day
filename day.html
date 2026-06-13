@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Nossa História ♡</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="particles"></div>
+
+<div class="app">
+<div class="pages">
+
+  <!-- PAGE: HOME -->
+  <div class="page active" id="pgHome">
+    <div class="home-gradient">
+      <div class="album-cover" id="albumCover">
+        <div class="cover-hint"><span>📷</span>Toque para adicionar capa</div>
+        <input type="file" accept="image/*" onchange="setCover(event)">
+      </div>
+      <div class="hero-text">
+        <div class="hero-type">Playlist • Dia dos Namorados</div>
+        <h1 class="hero-title">Para o <em>amor</em><br>da minha vida</h1>
+        <p class="hero-desc" contenteditable="true">Cada música escolhida com todo o amor do mundo. 🌹</p>
+      </div>
+    </div>
+    <div class="home-body">
+      <div class="action-row">
+        <button class="play-btn" id="mainPlayBtn" onclick="togglePlay()">▶</button>
+        <button class="heart-btn" onclick="toggleHeart(this)">🤍</button>
+        <button class="add-song-btn" onclick="goTab('pgMusic')">+ Música</button>
+      </div>
+
+      <div class="sec-hd">Faixas</div>
+
+      <div class="track-row" id="track-0" onclick="selectTrack(0)">
+        <span class="track-num" id="tnum-0">1</span>
+        <div class="track-thumb" id="thumb-0">🌹
+          <input type="file" accept="image/*" onchange="setThumb(event,0);event.stopPropagation()">
+        </div>
+        <div class="track-meta">
+          <div class="track-name" id="tname-0">Nossa música especial</div>
+          <div class="track-artist" id="tartist-0">Artista favorito</div>
+        </div>
+        <span class="track-dur" id="tdur-0">—:——</span>
+      </div>
+
+      <div class="track-row" id="track-1" onclick="selectTrack(1)">
+        <span class="track-num" id="tnum-1">2</span>
+        <div class="track-thumb" id="thumb-1" class="thumb-1">🌙
+          <input type="file" accept="image/*" onchange="setThumb(event,1);event.stopPropagation()">
+        </div>
+        <div class="track-meta">
+          <div class="track-name" id="tname-1">Música 2</div>
+          <div class="track-artist" id="tartist-1">Artista 2</div>
+        </div>
+        <span class="track-dur" id="tdur-1">—:——</span>
+      </div>
+
+      <div class="track-row" id="track-2" onclick="selectTrack(2)">
+        <span class="track-num" id="tnum-2">3</span>
+        <div class="track-thumb" id="thumb-2" class="thumb-2">✨
+          <input type="file" accept="image/*" onchange="setThumb(event,2);event.stopPropagation()">
+        </div>
+        <div class="track-meta">
+          <div class="track-name" id="tname-2">Música 3</div>
+          <div class="track-artist" id="tartist-2">Artista 3</div>
+        </div>
+        <span class="track-dur" id="tdur-2">—:——</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: FOTOS -->
+  <div class="page" id="pgFotos">
+    <div class="page-header">
+      <h1>📸 Nossa Galeria</h1>
+      <p>Toque nos quadros para adicionar fotos</p>
+    </div>
+    <div class="photo-grid">
+      <div class="photo-card photo-add" id="pc-0"><div class="plus">＋</div><span>Foto</span><input type="file" accept="image/*" onchange="addPhoto(event,0)"></div>
+      <div class="photo-card photo-add" id="pc-1"><div class="plus">＋</div><span>Foto</span><input type="file" accept="image/*" onchange="addPhoto(event,1)"></div>
+      <div class="photo-card photo-add" id="pc-2"><div class="plus">＋</div><span>Foto</span><input type="file" accept="image/*" onchange="addPhoto(event,2)"></div>
+      <div class="photo-card photo-add" id="pc-3"><div class="plus">＋</div><span>Foto</span><input type="file" accept="image/*" onchange="addPhoto(event,3)"></div>
+      <div class="photo-card photo-add" id="pc-4"><div class="plus">＋</div><span>Foto</span><input type="file" accept="image/*" onchange="addPhoto(event,4)"></div>
+      <div class="photo-card photo-add" id="pc-5"><div class="plus">＋</div><span>Foto</span><input type="file" accept="image/*" onchange="addPhoto(event,5)"></div>
+      <div class="photo-card photo-add" id="pc-6"><div class="plus">＋</div><span>Foto</span><input type="file" accept="image/*" onchange="addPhoto(event,6)"></div>
+      <div class="photo-card photo-add" id="pc-7"><div class="plus">＋</div><span>Foto</span><input type="file" accept="image/*" onchange="addPhoto(event,7)"></div>
+    </div>
+  </div>
+
+  <!-- PAGE: MENSAGEM -->
+  <div class="page" id="pgMsg">
+    <div class="page-header">
+      <h1>💌 Mensagem</h1>
+      <p>Escreva do fundo do coração</p>
+    </div>
+    <div class="msg-body">
+      <div class="msg-card">
+        <div class="msg-label">Para o amor da minha vida</div>
+        <textarea class="msg-textarea" placeholder="Escreva sua mensagem aqui... ♡" oninput="saveData()">Você é a música que meu coração sempre quis ouvir. Cada dia ao seu lado é uma nova nota nessa melodia que compusemos juntos. Feliz Dia dos Namorados, meu amor. ♡</textarea>
+        <div class="msg-hearts">💕 🌹 ✨</div>
+      </div>
+      <div class="msg-card">
+        <div class="msg-label">De</div>
+        <input type="text" placeholder="Seu nome..." class="msg-input" oninput="saveData()" value="Com todo o meu amor ♡">
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: MÚSICAS -->
+  <div class="page" id="pgMusic">
+    <div class="page-header">
+      <h1>🎵 Músicas</h1>
+      <p>Adicione até 3 músicas da sua galeria</p>
+    </div>
+    <div class="upload-wrapper">
+      <div class="upload-card" id="uc-0">
+        <span class="upload-icon">🎵</span>
+        <div class="upload-info"><strong id="un-0">Música 1 — toque para escolher</strong><span>MP3, WAV, M4A</span></div>
+        <input type="file" accept="audio/*" onchange="loadAudio(event,0)">
+      </div>
+      <div class="upload-card" id="uc-1">
+        <span class="upload-icon">🎵</span>
+        <div class="upload-info"><strong id="un-1">Música 2 — toque para escolher</strong><span>MP3, WAV, M4A</span></div>
+        <input type="file" accept="audio/*" onchange="loadAudio(event,1)">
+      </div>
+      <div class="upload-card" id="uc-2">
+        <span class="upload-icon">🎵</span>
+        <div class="upload-info"><strong id="un-2">Música 3 — toque para escolher</strong><span>MP3, WAV, M4A</span></div>
+        <input type="file" accept="audio/*" onchange="loadAudio(event,2)">
+      </div>
+    </div>
+    <div class="edit-names">
+      <div class="sec-hd">Editar nomes</div>
+      <div class="edit-row">
+        <span class="edit-num">1</span>
+        <div class="edit-fields">
+          <input class="edit-name" id="ename-0" placeholder="Nome da música..." oninput="syncName(0,this.value)">
+          <input class="edit-artist" id="eartist-0" placeholder="Artista..." oninput="syncArtist(0,this.value)">
+        </div>
+      </div>
+      <div class="edit-row">
+        <span class="edit-num">2</span>
+        <div class="edit-fields">
+          <input class="edit-name" id="ename-1" placeholder="Nome da música..." oninput="syncName(1,this.value)">
+          <input class="edit-artist" id="eartist-1" placeholder="Artista..." oninput="syncArtist(1,this.value)">
+        </div>
+      </div>
+      <div class="edit-row">
+        <span class="edit-num">3</span>
+        <div class="edit-fields">
+          <input class="edit-name" id="ename-2" placeholder="Nome da música..." oninput="syncName(2,this.value)">
+          <input class="edit-artist" id="eartist-2" placeholder="Artista..." oninput="syncArtist(2,this.value)">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /pages -->
+
+<!-- Mini Player -->
+<div class="mini-player" id="miniPlayer" onclick="openFullPlayer()">
+  <div class="mp-art" id="mpArt">💗</div>
+  <div class="mp-info">
+    <div class="mp-name" id="mpName">Escolha uma música ♡</div>
+    <div class="mp-artist" id="mpArtist">Nossa Playlist</div>
+  </div>
+  <div class="mp-controls" onclick="event.stopPropagation()">
+    <button class="mp-btn" onclick="prevTrack()">⏮</button>
+    <button class="mp-play" id="mpPlay" onclick="togglePlay()">▶</button>
+    <button class="mp-btn" onclick="nextTrack()">⏭</button>
+  </div>
+  <div class="mp-bar"><div class="mp-bar-fill" id="mpBarFill"></div></div>
+</div>
+
+<!-- Tab bar -->
+<nav class="tabbar">
+  <button class="tab-btn active" id="tab-pgHome" onclick="goTab('pgHome')">
+    <span class="tab-icon">🏠</span>Início
+  </button>
+  <button class="tab-btn" id="tab-pgFotos" onclick="goTab('pgFotos')">
+    <span class="tab-icon">📸</span>Fotos
+  </button>
+  <button class="tab-btn" id="tab-pgMsg" onclick="goTab('pgMsg')">
+    <span class="tab-icon">💌</span>Mensagem
+  </button>
+  <button class="tab-btn" id="tab-pgMusic" onclick="goTab('pgMusic')">
+    <span class="tab-icon">🎵</span>Músicas
+  </button>
+</nav>
+</div>
+
+<!-- Full Player Overlay -->
+<div class="fp-overlay" id="fpOverlay">
+  <div class="fp-drag" onclick="closeFullPlayer()"></div>
+  <div class="fp-header">
+    <span>Tocando agora</span>
+    <button class="fp-close" onclick="closeFullPlayer()">⌄</button>
+  </div>
+  <div class="fp-art" id="fpArt">💗</div>
+  <div class="fp-info">
+    <div>
+      <div class="fp-title" id="fpTitle">Escolha uma música</div>
+      <div class="fp-artist" id="fpArtist">Nossa Playlist ♡</div>
+    </div>
+    <button class="fp-heart" onclick="toggleHeart(this)">♡</button>
+  </div>
+  <div class="fp-progress">
+    <input type="range" class="fp-slider" id="fpSlider" value="0" min="0" max="100" step="0.1" oninput="seekAudio(this.value)">
+    <div class="fp-times">
+      <span id="fpCur">0:00</span>
+      <span id="fpDur">0:00</span>
+    </div>
+  </div>
+  <div class="fp-btns">
+    <button class="fp-btn">🔀</button>
+    <button class="fp-btn" onclick="prevTrack()">⏮</button>
+    <button class="fp-btn-play" id="fpPlay" onclick="togglePlay()">▶</button>
+    <button class="fp-btn" onclick="nextTrack()">⏭</button>
+    <button class="fp-btn">🔁</button>
+  </div>
+  <div class="fp-vol">
+    <span>🔇</span>
+    <input type="range" class="fp-vol-slider" id="fpVol" value="80" min="0" max="100" oninput="setVolume(this.value)">
+    <span>🔊</span>
+  </div>
+</div>
+
+<!-- Image modal -->
+<div class="img-modal" id="imgModal" onclick="closeImgModal()">
+  <button class="img-modal-close">✕</button>
+  <img id="imgModalSrc" src="" alt="">
+</div>
+
+<audio id="audioEl"></audio>
+
+<script>
+const audio = document.getElementById('audioEl');
+let curTrack = -1, playing = false;
+const srcs = [null, null, null];
+const thumbUrls = [null, null, null];
+const emojis = ['🌹', '🌙', '✨'];
+const photoData = [null, null, null, null, null, null, null, null];
+
+// ===== SISTEMA DE SALVAMENTO =====
+function fileToBase64(file, callback) {
+  const reader = new FileReader();
+  reader.onload = () => callback(reader.result);
+  reader.readAsArrayBuffer(file);
+}
+
+function saveData() {
+  const data = {
+    photos: photoData,
+    thumbs: thumbUrls,
+    cover: document.getElementById('albumCover').innerHTML,
+    names: [
+      document.getElementById('ename-0').value,
+      document.getElementById('ename-1').value,
+      document.getElementById('ename-2').value
+    ],
+    artists: [
+      document.getElementById('eartist-0').value,
+      document.getElementById('eartist-1').value,
+      document.getElementById('eartist-2').value
+    ],
+    msgText: document.querySelector('.msg-textarea').value,
+    msgFrom: document.querySelector('.msg-input').value
+  };
+  localStorage.setItem('valentina-data', JSON.stringify(data));
+}
+
+function loadData() {
+  const saved = localStorage.getItem('valentina-data');
+  if (!saved) return;
+  const data = JSON.parse(saved);
+  
+  // Carregar fotos
+  if (data.photos) {
+    data.photos.forEach((img, idx) => {
+      if (img) {
+        const c = document.getElementById('pc-' + idx);
+        c.className = 'photo-card';
+        c.innerHTML = '<img src="' + img + '" alt="" onclick="openImgModal(\'' + img.replace(/'/g, "\\'") + '\')">'
+          + '<button class="photo-del" onclick="removePhoto(' + idx + ')">✕</button>';
+      }
+    });
+  }
+  
+  // Carregar thumbs
+  if (data.thumbs) {
+    data.thumbs.forEach((img, idx) => {
+      if (img) {
+        thumbUrls[idx] = img;
+        document.getElementById('thumb-' + idx).innerHTML =
+          '<img src="' + img + '" alt=""><input type="file" accept="image/*" onchange="setThumb(event,' + idx + ');event.stopPropagation()">';
+      }
+    });
+  }
+  
+  // Carregar capa
+  if (data.cover) {
+    document.getElementById('albumCover').innerHTML = data.cover;
+  }
+  
+  // Carregar nomes
+  if (data.names) {
+    data.names.forEach((name, idx) => {
+      if (name) {
+        document.getElementById('ename-' + idx).value = name;
+        document.getElementById('tname-' + idx).textContent = name;
+      }
+    });
+  }
+  
+  // Carregar artistas
+  if (data.artists) {
+    data.artists.forEach((artist, idx) => {
+      if (artist) {
+        document.getElementById('eartist-' + idx).value = artist;
+        document.getElementById('tartist-' + idx).textContent = artist;
+      }
+    });
+  }
+  
+  // Carregar mensagens
+  if (data.msgText) document.querySelector('.msg-textarea').value = data.msgText;
+  if (data.msgFrom) document.querySelector('.msg-input').value = data.msgFrom;
+}
+
+function fmt(s) {
+  if (!s || isNaN(s)) return '0:00';
+  return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+}
+
+function goTab(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+function loadAudio(e, idx) {
+  const f = e.target.files[0];
+  if (!f) return;
+  const url = URL.createObjectURL(f);
+  srcs[idx] = url;
+  const shortName = f.name.replace(/\.[^.]+$/, '');
+  document.getElementById('un-' + idx).textContent = 'Música ' + (idx + 1) + ' — ' + shortName;
+  document.getElementById('uc-' + idx).classList.add('loaded');
+  document.getElementById('ename-' + idx).value = shortName;
+  syncName(idx, shortName);
+  const tmp = new Audio(url);
+  tmp.addEventListener('loadedmetadata', () => {
+    document.getElementById('tdur-' + idx).textContent = fmt(tmp.duration);
+  });
+  if (curTrack === -1) selectTrack(idx);
+}
+
+function syncName(idx, v) {
+  document.getElementById('tname-' + idx).textContent = v || 'Música ' + (idx + 1);
+  saveData();
+}
+function syncArtist(idx, v) {
+  document.getElementById('tartist-' + idx).textContent = v || 'Artista ' + (idx + 1);
+  saveData();
+}
+
+function selectTrack(idx) {
+  if (!srcs[idx]) { goTab('pgMusic'); return; }
+  curTrack = idx;
+  audio.src = srcs[idx];
+  document.querySelectorAll('.track-row').forEach((r, i) => r.classList.toggle('playing', i === idx));
+  const name = document.getElementById('tname-' + idx).textContent;
+  const artist = document.getElementById('tartist-' + idx).textContent;
+  ['mpName', 'fpTitle'].forEach(id => document.getElementById(id).textContent = name);
+  ['mpArtist', 'fpArtist'].forEach(id => document.getElementById(id).textContent = artist);
+  const artEl = thumbUrls[idx]
+    ? '<img src="' + thumbUrls[idx] + '" alt="">'
+    : emojis[idx] || '💗';
+  document.getElementById('mpArt').innerHTML = artEl;
+  document.getElementById('fpArt').innerHTML = artEl;
+  document.getElementById('fpArt').classList.add('pulse');
+  setTimeout(() => document.getElementById('fpArt').classList.remove('pulse'), 600);
+  audio.play();
+  playing = true;
+  updBtns();
+}
+
+function togglePlay() {
+  if (curTrack === -1) { selectTrack(0); return; }
+  if (playing) { audio.pause(); playing = false; }
+  else { audio.play(); playing = true; }
+  updBtns();
+}
+
+function prevTrack() { selectTrack((curTrack - 1 + 3) % 3); }
+function nextTrack() { selectTrack((curTrack + 1) % 3); }
+
+function updBtns() {
+  const ic = playing ? '⏸' : '▶';
+  ['mpPlay', 'fpPlay', 'mainPlayBtn'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = ic;
+  });
+}
+
+audio.addEventListener('timeupdate', () => {
+  const pct = audio.duration ? (audio.currentTime / audio.duration * 100) : 0;
+  document.getElementById('fpSlider').value = pct;
+  document.getElementById('mpBarFill').style.width = pct + '%';
+  document.getElementById('fpCur').textContent = fmt(audio.currentTime);
+  document.getElementById('fpDur').textContent = fmt(audio.duration);
+});
+audio.addEventListener('ended', nextTrack);
+
+function seekAudio(v) { if (audio.duration) audio.currentTime = audio.duration * v / 100; }
+function setVolume(v) { audio.volume = v / 100; }
+
+function openFullPlayer() { document.getElementById('fpOverlay').classList.add('open'); }
+function closeFullPlayer() { document.getElementById('fpOverlay').classList.remove('open'); }
+
+let touchY = 0;
+document.getElementById('fpOverlay').addEventListener('touchstart', e => { touchY = e.touches[0].clientY; });
+document.getElementById('fpOverlay').addEventListener('touchend', e => {
+  if (e.changedTouches[0].clientY - touchY > 80) closeFullPlayer();
+});
+
+function setCover(e) {
+  const f = e.target.files[0]; if (!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const url = reader.result;
+    const c = document.getElementById('albumCover');
+    c.innerHTML = '<img src="' + url + '" alt="Capa"><input type="file" accept="image/*" onchange="setCover(event)">';
+    saveData();
+  };
+  reader.readAsDataURL(f);
+}
+
+function setThumb(e, idx) {
+  e.stopPropagation();
+  const f = e.target.files[0]; if (!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const url = reader.result;
+    thumbUrls[idx] = url;
+    document.getElementById('thumb-' + idx).innerHTML =
+      '<img src="' + url + '" alt=""><input type="file" accept="image/*" onchange="setThumb(event,' + idx + ');event.stopPropagation()">';
+    if (curTrack === idx) {
+      document.getElementById('mpArt').innerHTML = '<img src="' + url + '" alt="">';
+      document.getElementById('fpArt').innerHTML = '<img src="' + url + '" alt="">';
+    }
+    saveData();
+  };
+  reader.readAsDataURL(f);
+}
+
+function addPhoto(e, idx) {
+  const f = e.target.files[0]; if (!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const url = reader.result;
+    photoData[idx] = url;
+    const c = document.getElementById('pc-' + idx);
+    c.className = 'photo-card';
+    c.innerHTML = '<img src="' + url + '" alt="" onclick="openImgModal(\'' + url.replace(/'/g, "\\'") + '\')">'
+      + '<button class="photo-del" onclick="removePhoto(' + idx + ')">✕</button>';
+    saveData();
+  };
+  reader.readAsDataURL(f);
+}
+function removePhoto(idx) {
+  photoData[idx] = null;
+  const c = document.getElementById('pc-' + idx);
+  c.className = 'photo-card photo-add';
+  c.innerHTML = '<div class="plus">＋</div><span>Foto</span><input type="file" accept="image/*" onchange="addPhoto(event,' + idx + ');event.stopPropagation()">';
+  saveData();
+}
+function openImgModal(src) {
+  document.getElementById('imgModalSrc').src = src;
+  document.getElementById('imgModal').classList.add('open');
+}
+function closeImgModal() { document.getElementById('imgModal').classList.remove('open'); }
+
+function toggleHeart(btn) {
+  if (btn.textContent === '🤍' || btn.textContent === '♡') {
+    btn.textContent = '❤️';
+  } else {
+    btn.textContent = btn.classList.contains('fp-heart') ? '♡' : '🤍';
+  }
+}
+
+// Partículas
+const pc = document.getElementById('particles');
+const hs = ['💗', '💕', '💖', '❤️', '🌹', '✨', '💝', '💓'];
+for (let i = 0; i < 14; i++) {
+  const p = document.createElement('div');
+  p.className = 'hp';
+  p.textContent = hs[Math.floor(Math.random() * hs.length)];
+  p.style.setProperty('--d', (7 + Math.random() * 9) + 's');
+  p.style.setProperty('--dl', (Math.random() * 6) + 's');
+  p.style.setProperty('--x', (Math.random() * 100) + '%');
+  pc.appendChild(p);
+}
+
+audio.volume = 0.8;
+
+// Carregar dados salvos ao abrir a página
+loadData();
+</script>
+</body>
+</html>
