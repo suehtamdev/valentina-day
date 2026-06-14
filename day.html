@@ -271,13 +271,45 @@ function saveData() {
     msgText: document.querySelector('.msg-textarea').value,
     msgFrom: document.querySelector('.msg-input').value
   };
+  
+  // Salvar local também (para offline)
   localStorage.setItem('valentina-data', JSON.stringify(data));
+  
+  // Salvar na API/Banco de dados
+  fetch('/api/upload', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).catch(e => console.log('Salvo localmente. Conexão com servidor indisponível.'));
 }
 
 function loadData() {
+  // Tentar carregar do servidor primeiro
+  fetch('/api/get-data')
+    .then(r => r.json())
+    .then(data => {
+      if (data) {
+        applyData(data);
+        localStorage.setItem('valentina-data', JSON.stringify(data));
+      } else {
+        // Se não houver dados no servidor, carregar local
+        loadLocalData();
+      }
+    })
+    .catch(() => {
+      // Se falhar, carregar do localStorage
+      loadLocalData();
+    });
+}
+
+function loadLocalData() {
   const saved = localStorage.getItem('valentina-data');
   if (!saved) return;
   const data = JSON.parse(saved);
+  applyData(data);
+}
+
+function applyData(data) {
   
   // Carregar fotos
   if (data.photos) {
